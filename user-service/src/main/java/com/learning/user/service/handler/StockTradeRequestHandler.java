@@ -4,13 +4,16 @@ import com.leaning.common.Ticker;
 import com.leaning.user.StockTradeRequest;
 import com.leaning.user.StockTradeResponse;
 import com.learning.user.exceptions.InsufficientBalanceException;
+import com.learning.user.exceptions.InsufficientSharesException;
 import com.learning.user.exceptions.UnknownTickerException;
 import com.learning.user.exceptions.UnknownUserException;
 import com.learning.user.repository.PortfolioItemRepository;
 import com.learning.user.repository.UserRepository;
 import com.learning.user.util.EntityMessageMapper;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Service
 public class StockTradeRequestHandler {
 
     private final UserRepository userRepository;
@@ -43,6 +46,23 @@ public class StockTradeRequestHandler {
         return EntityMessageMapper.toStockTradeResponse(request, user.getBalance());
     }
 
+    @Transactional
+    public StockTradeResponse sellStock(StockTradeRequest request) {
+        // validate
+        this.validateTicker(request.getTicker());
+        var userId = (long)request.getUserId();
+        var user = this.userRepository.findById(userId)
+                .orElseThrow(() -> new UnknownUserException(userId));
+        var portfolioItem = this.portfolioItemRepository.findByUserIdAndTicker(userId, request.getTicker())
+                .filter(pi -> pi.getQuantity() >= request.getQuantity())
+                .orElseThrow(() -> new InsufficientSharesException(userId));
+
+        // valid request
+        var totalPrice = request.getPrice() * request.getQuantity();
+        user.setBalance(user.getBalance() + totalPrice);
+        portfolioItem.setQuantity(portfolioItem.getQuantity() - request.getQuantity());
+        return EntityMessageMapper.toStockTradeResponse(request, user.getBalance());
+    }
 
     private void validateTicker(com.leaning.common.Ticker ticker) {
         if(Ticker.UNKNOWN.equals(ticker)) {
