@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PortfolioItemRepository extends CrudRepository<PortfolioItem, Long> {
-    List<PortfolioItem> findAllByUserId(Integer userId);
-    Optional<PortfolioItem> findByUserIdAndTicker(Integer userId, Ticker ticker);
+    List<PortfolioItem> findAllByUserId(Long userId);
+    Optional<PortfolioItem> findByUserIdAndTicker(Long userId, Ticker ticker);
 }
