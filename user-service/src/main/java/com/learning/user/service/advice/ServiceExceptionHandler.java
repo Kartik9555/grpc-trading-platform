@@ -27,7 +27,7 @@ public class ServiceExceptionHandler {
     }
 
     @GrpcExceptionHandler(value = {InsufficientBalanceException.class, InsufficientSharesException.class})
-    public Status handlePreconditionFailures(UnknownUserException exception) {
+    public Status handlePreconditionFailures(Exception exception) {
         return Status.FAILED_PRECONDITION
                 .withDescription(exception.getMessage())
                 .withCause(exception);
