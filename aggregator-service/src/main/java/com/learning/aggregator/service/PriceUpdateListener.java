@@ -22,7 +22,7 @@ public class PriceUpdateListener implements StreamObserver<PriceUpdate> {
     private final Set<SseEmitter> emitters = Collections.synchronizedSet(new HashSet<>());
     private final Long sseTimeout;
 
-    public PriceUpdateListener(@Value("{sse.timeout:300000}") Long sseTimeout) {
+    public PriceUpdateListener(@Value("${sse.timeout:300000}") Long sseTimeout) {
         this.sseTimeout = sseTimeout;
     }
 
