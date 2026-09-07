@@ -12,7 +12,7 @@ public class ApplicationExceptionHandler {
     public ResponseEntity<String> handleStatusRuntimeException(StatusRuntimeException exception) {
         return switch (exception.getStatus().getCode()) {
             case INVALID_ARGUMENT, FAILED_PRECONDITION ->  ResponseEntity.badRequest().body(exception.getStatus().getDescription());
-            case NOT_FOUND -> ResponseEntity.noContent().build();
+            case NOT_FOUND -> ResponseEntity.notFound().build();
             case null, default ->  ResponseEntity.internalServerError().body(exception.getMessage());
         };
     }
