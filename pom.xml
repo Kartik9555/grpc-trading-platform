@@ -21,6 +21,7 @@
         <module>proto</module>
         <module>user-service</module>
         <module>aggregator-service</module>
+        <module>stock-service</module>
     </modules>
 
 
