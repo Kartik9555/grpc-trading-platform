@@ -7,7 +7,6 @@ import com.leaning.stock.PriceUpdate;
 import com.leaning.stock.StockPriceRequest;
 import com.leaning.stock.StockPriceResponse;
 import com.leaning.stock.StockServiceGrpc;
-import com.learning.aggregator.test.StockUpdatesTest;
 import io.grpc.stub.StreamObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

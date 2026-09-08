@@ -2,12 +2,9 @@ package com.learning.aggregator.test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leaning.common.Ticker;
-import com.leaning.stock.PriceUpdate;
 import com.learning.aggregator.dto.PriceUpdateDto;
 import com.learning.aggregator.test.mockservice.StockMockService;
-import com.learning.aggregator.test.mockservice.UserMockService;
 import net.devh.boot.grpc.server.service.GrpcService;
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
